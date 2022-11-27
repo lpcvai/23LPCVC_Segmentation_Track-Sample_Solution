@@ -9,7 +9,9 @@ import imageio as imageio
 import cv2
 import torchvision.transforms as transforms
 import torch.nn.functional as F
-
+import subprocess
+from threading import  Thread, Event
+import jtop
 
 MEAN = (0.485, 0.456, 0.406)
 STD = (0.229, 0.224, 0.225)
@@ -142,3 +144,39 @@ def bench_speed(model, iter=30):
         runtimeMeter.update(t_1-t_0)
 
     return runtimeMeter.avg
+
+def bench_power(model, iter=200):
+
+    powerMeter = averageMeter(20)
+
+    end_event = Event()
+    cnt_event = Event()
+
+    def powermeter(powerMeter): 
+
+        with jtop.jtop() as jtsn:
+            while True:
+                if end_event.is_set():
+                    break
+    
+                if cnt_event.is_set():
+                    time.sleep(0.01)
+                    out = float(jtsn.power[1]['5V GPU']['cur'])
+                    powerMeter.update(out)
+
+    thread = Thread(target=powermeter, args=(powerMeter,))
+    thread.start()
+
+    input = torch.rand((1,3,SIZE[1],SIZE[0])).cuda()
+
+    for idx in range(iter):
+
+        tenOut = model(input)  #testing
+        torch.cuda.synchronize()
+        cnt_event.set()
+
+    torch.cuda.synchronize()
+
+    end_event.set()
+
+    return powerMeter.avg
