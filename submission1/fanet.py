@@ -1,3 +1,8 @@
+######################################################################
+# Hu, Ping et al. Real-time semantic segmentation with fast attention. 
+# IEEE Robotics and Automation Letters, 2020                       
+######################################################################
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
