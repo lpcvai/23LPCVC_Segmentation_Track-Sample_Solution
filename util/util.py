@@ -1,6 +1,3 @@
-# Adapted from score written by wkentaro
-# https://github.com/wkentaro/pytorch-fcn/blob/master/torchfcn/utils.py
-
 import numpy as np
 import os
 import torch
@@ -9,7 +6,9 @@ import imageio as imageio
 import cv2
 import torchvision.transforms as transforms
 import torch.nn.functional as F
-
+import subprocess
+from threading import  Thread, Event
+import jtop
 
 MEAN = (0.485, 0.456, 0.406)
 STD = (0.229, 0.224, 0.225)
@@ -142,3 +141,48 @@ def bench_speed(model, iter=30):
         runtimeMeter.update(t_1-t_0)
 
     return runtimeMeter.avg
+
+def bench_power(model, iter=200):
+    
+    ttime = 0.0
+
+    powerMeter = averageMeter(0)
+
+    end_event = Event()
+    cnt_event = Event()
+
+    def powermeter(powerMeter): 
+
+        with jtop.jtop() as jtsn:
+            while True:
+                if end_event.is_set():
+                    break
+    
+                if cnt_event.is_set():
+                    time.sleep(0.01)
+                    out = float(jtsn.power[1]['5V GPU']['cur'])
+                    powerMeter.update(out)
+
+    thread = Thread(target=powermeter, args=(powerMeter,))
+    thread.start()
+
+    input = torch.rand((1,3,SIZE[1],SIZE[0])).cuda()
+
+    for idx in range(iter):
+
+        torch.cuda.synchronize()
+        t_0 = time.time()
+
+        tenOut = model(input)  #testing
+
+        torch.cuda.synchronize()
+        t_1 = time.time()
+        if idx == 0:
+            cnt_event.set()
+
+        ttime += t_1 - t_0
+
+    end_event.set()
+
+
+    return powerMeter.avg*ttime/3600./iter
