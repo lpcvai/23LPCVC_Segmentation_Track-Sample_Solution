@@ -143,10 +143,15 @@ def bench_speed(model, iter=30):
     return runtimeMeter.avg
 
 def bench_power(model, iter=200):
+<<<<<<< HEAD
     
     ttime = 0.0
 
     powerMeter = averageMeter(0)
+=======
+
+    powerMeter = averageMeter(20)
+>>>>>>> 6db0403ccac66e3aa68c37f1da94498477638217
 
     end_event = Event()
     cnt_event = Event()
@@ -170,6 +175,7 @@ def bench_power(model, iter=200):
 
     for idx in range(iter):
 
+<<<<<<< HEAD
         torch.cuda.synchronize()
         t_0 = time.time()
 
@@ -186,3 +192,14 @@ def bench_power(model, iter=200):
 
 
     return powerMeter.avg*ttime/3600./iter
+=======
+        tenOut = model(input)  #testing
+        torch.cuda.synchronize()
+        cnt_event.set()
+
+    torch.cuda.synchronize()
+
+    end_event.set()
+
+    return powerMeter.avg
+>>>>>>> 6db0403ccac66e3aa68c37f1da94498477638217
