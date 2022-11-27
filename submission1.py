@@ -19,7 +19,7 @@ model.cuda()
 #Run and evaluate
 ########################################################
 
-mean_iu = 0#bench_acc(model)
+mean_iu = bench_acc(model)
 speed = bench_speed(model)
 power = bench_power(model)
 
