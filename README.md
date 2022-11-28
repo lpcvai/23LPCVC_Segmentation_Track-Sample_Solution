@@ -38,7 +38,7 @@
 ### Metrics
 - Accuracy: mIoU over all th 14 categories. By calling function `bench_acc()`.
 - Speed: average runtime for processing one frame (s/f). By calling function `bench_speed()`.
-- Power: power consumption of GPU for processing one frame (s/f). By calling function `bench_power()`.
+- Power: power consumption of GPU for processing one frame (mJ/f). By calling function `bench_power()`.
 
 ## Submission
 For a submission *MODEL*, there are should be
