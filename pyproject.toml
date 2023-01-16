@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "lpcvc2023-sample-solution"
+version = "0.1.0"
+description = ""
+authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
+readme = "README.md"
+packages = [{include = "lpcvc2023_sample_solution"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+isort = "^5.11.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
