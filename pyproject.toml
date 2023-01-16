@@ -7,7 +7,12 @@ readme = "README.md"
 packages = [{include = "lpcvc2023_sample_solution"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
+imageio = "^2.24.0"
+numpy = "^1.24.1"
+tqdm = "^4.64.1"
+torch = "^1.13.1"
+torchvision = "^0.14.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
