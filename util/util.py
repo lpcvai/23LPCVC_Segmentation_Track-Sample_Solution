@@ -10,8 +10,7 @@ import subprocess
 from threading import  Thread, Event
 import jtop
 
-MEAN = (0.485, 0.456, 0.406)
-STD = (0.229, 0.224, 0.225)
+
 SIZE = [512,512]
 ####################################################################
 
@@ -82,7 +81,7 @@ class averageMeter(object):
             self.sum += val * n
             self.avg = self.sum / (self.count-self.sstep+1)
 
-def bench_acc(model, dataPath='./data/'):
+def bench_acc(model, mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225), dataPath='./data/'):
     #[input] model: segmenation model
     #[input] dataPath: path to a folder containing 'gt' and 'img'
     #[input] accMeter: measure mIoU
@@ -106,7 +105,7 @@ def bench_acc(model, dataPath='./data/'):
         npyGT = npyGT[np.newaxis,:,:]
 
         tenImg = transforms.ToTensor()(npyImg)  # convert to tensor (values between 0 and 1)
-        tenImg = transforms.Normalize(MEAN, STD)(tenImg)  # normalize the tensor
+        tenImg = transforms.Normalize(mean, std)(tenImg)  # normalize the tensor
         tenImg = tenImg.unsqueeze(0)  # add a batch dimension
 
         tenOut = model(tenImg.cuda())  #testing
