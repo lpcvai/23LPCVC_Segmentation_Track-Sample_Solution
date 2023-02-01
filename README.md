@@ -2,14 +2,40 @@
 
 > An example solution for LPCVC 2023
 
-## Environment
+## Table of Contents
 
-- imageio==2.15.0
-- jetson_stats==3.0.1
-- numpy==1.19.2
-- torch==1.4.0
-- torchvision==0.2.2.post3
-- tqdm==4.64.1
+- [Sample Solution for LPCVC 2023](#sample-solution-for-lpcvc-2023)
+  - [Table of Contents](#table-of-contents)
+  - [Dependencies](#dependencies)
+  - [Testing Data](#testing-data)
+  - [Evaluation](#evaluation)
+    - [Format](#format)
+    - [Metrics](#metrics)
+  - [Submission](#submission)
+    - [Sample-1](#sample-1)
+    - [Sample-2 (We will provide this as the examplar solution)](#sample-2-we-will-provide-this-as-the-examplar-solution)
+
+## Dependencies
+
+The sample solution is dependent upon the following software:
+
+- [`Python 3.10.9`](https://www.python.org/downloads/release/python-3109/)
+
+The following Python packages are required to run the software:
+
+- `imageio==2.15.0`
+- `jetson_stats==3.0.1`
+- `numpy==1.19.2`
+- `torch==1.4.0`
+- `torchvision==0.2.2.post3`
+- `tqdm==4.64.1`
+
+We provide a [`requirements.txt`](requirements.txt) file that can be used to
+install the dependencies with the following commands:
+
+1. `python3.10 -m pip install --upgrade pip`
+1. `python3.10 -m pip install -r requriements.txt`
+1. `sudo python3.10 -m pip install jetson-stats==3.0.1`
 
 ## Testing Data
 
