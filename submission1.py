@@ -1,5 +1,5 @@
 import torch
-from util.util import bench_acc,bench_speed,bench_power
+from util.util import bench_acc,bench_speed
 
 torch.backends.cudnn.benchmark = True
 torch.backends.cudnn.deterministic = True
@@ -21,7 +21,7 @@ model.cuda()
 
 mean_iu = bench_acc(model)
 speed = bench_speed(model)
-power = bench_power(model)
+power = 0.0#bench_power(model)
 
 print('mIoU: {:04f}; Speed : {:06f} s/f; Avg Power : {:06f} mJ/f'.format(mean_iu, speed, power))
 

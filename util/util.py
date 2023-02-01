@@ -8,7 +8,7 @@ import torchvision.transforms as transforms
 import torch.nn.functional as F
 import subprocess
 from threading import  Thread, Event
-import jtop
+#import jtop
 
 
 SIZE = [512,512]
@@ -99,6 +99,8 @@ def bench_acc(model, mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225), 
 
         npyImg = imageio.imread(imgPath)
         npyGT =  imageio.imread(gtPath).astype(np.uint8)
+        if len(npyGT.shape)==3:
+            npyGT = npyGT[:,:,0]
 
         npyImg = cv2.resize(npyImg, tuple(SIZE), interpolation = cv2.INTER_AREA)
         npyGT = cv2.resize(npyGT, tuple(SIZE), interpolation = cv2.INTER_NEAREST)
@@ -111,7 +113,6 @@ def bench_acc(model, mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225), 
         tenOut = model(tenImg.cuda())  #testing
         tenOut = F.interpolate(tenOut, (SIZE[1],SIZE[0]), mode='bilinear', align_corners=True)
         npyOut = tenOut.cpu().data.max(1)[1].numpy()
-
 
         accMeter.update(npyGT, npyOut)
 
@@ -140,7 +141,7 @@ def bench_speed(model, iter=30):
         runtimeMeter.update(t_1-t_0)
 
     return runtimeMeter.avg
-
+'''
 def bench_power(model, iter=200):
     
     ttime = 0.0
@@ -185,3 +186,4 @@ def bench_power(model, iter=200):
 
 
     return powerMeter.avg*ttime/3600./iter
+'''

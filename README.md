@@ -9,7 +9,7 @@
 - tqdm==4.64.1
 
 ## Testing Data 
-- Download [testing data](https://drive.google.com/file/d/1bBwwA_SQ4vT7p5dBuZwo3rMipI6fx7SC/view?usp=share_link) (Please keep this confidential and don't distribute)
+- Download [testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link) (Please keep this confidential and don't distribute)
 - Organize testing directory as
 ```
 ├── util
@@ -23,12 +23,12 @@
         ├── test_0000.png
         ├── test_0001.png
         ├── ...
-        └── test_0499.png
+        └── test_0599.png
     └── GT
         ├── test_0000.png
         ├── test_0001.png
         ├── ...
-        └── test_0499.png
+        └── test_0599.png
 ```  
 
 ## Evaluation
