@@ -1,6 +1,9 @@
-# Sample Solution for LPCVC2023
+# Sample Solution for LPCVC 2023
+
+> An example solution for LPCVC 2023
 
 ## Environment
+
 - imageio==2.15.0
 - jetson_stats==3.0.1
 - numpy==1.19.2
@@ -8,10 +11,14 @@
 - torchvision==0.2.2.post3
 - tqdm==4.64.1
 
-## Testing Data 
-- Download [testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link) (Please keep this confidential and don't distribute)
+## Testing Data
+
+- Download
+  [testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link)
+  (Please keep this confidential and don't distribute)
 - Organize testing directory as
-```
+
+```shell
 ├── util
 |── README.md
 |── submission1
@@ -29,27 +36,37 @@
         ├── test_0001.png
         ├── ...
         └── test_0599.png
-```  
+```
 
 ## Evaluation
+
 ### Format
-- Input/output resolution: 512*512
-- Model Output: 14 \* 512 \* 512 for *Channel \* Height \* Width*. Each channel corresponds to the predicted probability for one category.
+
+- Input/output resolution: 512\*512
+- Model Output: `14 * 512 * 512` for `Channel * Height * Width`. Each channel
+  corresponds to the predicted probability for one category.
+
 ### Metrics
+
 - Accuracy: mIoU over all th 14 categories. By calling function `bench_acc()`.
-- Speed: average runtime for processing one frame (s/f). By calling function `bench_speed()`.
-- Power: power consumption of GPU for processing one frame (mJ/f). By calling function `bench_power()`.
+- Speed: average runtime for processing one frame (s/f). By calling function
+  `bench_speed()`.
+- Power: power consumption of GPU for processing one frame (mJ/f). By calling
+  function `bench_power()`.
 
 ## Submission
+
 For a submission *MODEL*, there are should be
-- *MODEL.py*: a formated file for performing evaluation 
+
+- *MODEL.py*: a formated file for performing evaluation
 - *MODEL*: a folder containin related model files, weights, etc.
 
 ### Sample-1
-- Run `python submission1.py` 
+
+- Run `python submission1.py`
 - `submission1` is plain pytorch model
 
 ### Sample-2 (We will provide this as the examplar solution)
-- Run `python submission2.py` 
-- `submission2` is tenorRT model converted from Sample-1.
 
+- Run `python submission2.py`
+- `submission2` is tenorRT model converted from Sample-1.
