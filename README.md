@@ -61,7 +61,7 @@ install the dependencies with the following commands:
 
 ### Testing Dataset
 
-Please do not distribute the testing data following testing data.
+Please do not distribute the testing data.
 
 - [Download the testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link)
 
