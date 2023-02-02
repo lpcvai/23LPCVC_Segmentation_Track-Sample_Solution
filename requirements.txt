@@ -1,6 +1,7 @@
-imageio==2.15.0
+imageio
+numpy
+opencv-contrib-python
+torch
+torchvision
+tqdm
 # jetson_stats==3.0.1
-numpy==1.19.2
-torch==1.4.0
-torchvision==0.2.2.post3
-tqdm==4.64.1
