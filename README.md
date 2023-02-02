@@ -1,13 +1,16 @@
-# Sample Solution for LPCVC 2023
+# Sample Solutions for LPCVC 2023
 
-> An example solution for LPCVC 2023
+> Example solutions for LPCVC 2023
 
 ## Table of Contents
 
-- [Sample Solution for LPCVC 2023](#sample-solution-for-lpcvc-2023)
+- [Sample Solutions for LPCVC 2023](#sample-solutions-for-lpcvc-2023)
   - [Table of Contents](#table-of-contents)
-  - [Dependencies](#dependencies)
-  - [Testing Data](#testing-data)
+  - [About](#about)
+  - [How to Run](#how-to-run)
+    - [Dependencies](#dependencies)
+    - [Testing Dataset](#testing-dataset)
+      - [Evaluation Directory Structure](#evaluation-directory-structure)
   - [Evaluation](#evaluation)
     - [Format](#format)
     - [Metrics](#metrics)
@@ -15,20 +18,39 @@
     - [Sample-1](#sample-1)
     - [Sample-2 (We will provide this as the examplar solution)](#sample-2-we-will-provide-this-as-the-examplar-solution)
 
-## Dependencies
+## About
 
-The sample solution is dependent upon the following software:
+This repository contains sample solutions for the 2023 Low Powered Computer
+Vision Challenge (LPCVC) and the training code to generate the solutions.
 
-- [`Python 3.10.9`](https://www.python.org/downloads/release/python-3109/)
+This repository has two branches:
 
-The following Python packages are required to run the software:
+1. `main` (this branch): Contains the testing and evaluation of the sample
+   solutions
+1. `training`: Contains training code that was used to generate the sample
+   solutions
 
-- `imageio==2.15.0`
-- `jetson_stats==3.0.1`
-- `numpy==1.19.2`
-- `torch==1.4.0`
-- `torchvision==0.2.2.post3`
-- `tqdm==4.64.1`
+The remainder of this `README.md` will cover content specific to the `main`
+branch. For information on how to run the training examples, please see the
+`training` branch's `README.md`.
+
+## How to Run
+
+The following sections cover how to evaluate the sample solutions.
+
+### Dependencies
+
+The evaluation of these sample models is dependent upon
+[`Python 3.10`](https://www.python.org/downloads/release/python-3109/)
+
+The following `Python 3.10` dependencies are necessary for evaluation:
+
+- `imageio`
+- `jetson_stats`
+- `numpy`
+- `torch`
+- `torchvision`
+- `tqdm`
 
 We provide a [`requirements.txt`](requirements.txt) file that can be used to
 install the dependencies with the following commands:
@@ -37,12 +59,17 @@ install the dependencies with the following commands:
 1. `python3.10 -m pip install -r requriements.txt`
 1. `sudo python3.10 -m pip install jetson-stats==3.0.1`
 
-## Testing Data
+### Testing Dataset
 
-- Download
-  [testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link)
-  (Please keep this confidential and don't distribute)
-- Organize testing directory as
+Please do not distribute the testing data following testing data.
+
+- [Download the testing data](https://drive.google.com/file/d/1cXHE2TKSqbl4u1haTGhBhwcUkt_RUhsl/view?usp=share_link)
+
+#### Evaluation Directory Structure
+
+Plese store the testing data in this repositories [`data`](data/) directory.
+
+The desired directory structure is the following:
 
 ```shell
 ├── util
@@ -74,7 +101,7 @@ install the dependencies with the following commands:
 
 ### Metrics
 
-- Accuracy: mIoU over all th 14 categories. By calling function `bench_acc()`.
+- Accuracy: mIoU over all the 14 categories. By calling function `bench_acc()`.
 - Speed: average runtime for processing one frame (s/f). By calling function
   `bench_speed()`.
 - Power: power consumption of GPU for processing one frame (mJ/f). By calling
