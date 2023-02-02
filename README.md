@@ -14,9 +14,7 @@
   - [Evaluation](#evaluation)
     - [Format](#format)
     - [Metrics](#metrics)
-  - [Submission](#submission)
-    - [Sample-1](#sample-1)
-    - [Sample-2 (We will provide this as the exemplar solution)](#sample-2-we-will-provide-this-as-the-exemplar-solution)
+    - [Sample 1](#sample-1)
 
 ## About
 
@@ -112,19 +110,21 @@ The desired directory structure is the following:
 - Power: power consumption of GPU for processing one frame (mJ/f). By calling
   function `bench_power()`.
 
-## Submission
+<!-- ## Submission
+
+> NOTE: These are subject to change prior to the competition starting
 
 For a submission *MODEL*, there are should be
 
 - *MODEL.py*: a formatted file for performing evaluation
-- *MODEL*: a folder containing related model files, weights, etc.
+- *MODEL*: a folder containing related model files, weights, etc. -->
 
-### Sample-1
+### Sample 1
 
 - Run `python submission1.py`
 - `submission1` is plain pytorch model
 
-### Sample-2 (We will provide this as the exemplar solution)
+<!-- ### Sample-2 (We will provide this as the exemplar solution)
 
 - Run `python submission2.py`
-- `submission2` is tenorRT model converted from Sample-1.
+- `submission2` is tenorRT model converted from Sample-1. -->
