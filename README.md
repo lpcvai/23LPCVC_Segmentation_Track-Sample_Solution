@@ -16,7 +16,7 @@
     - [Metrics](#metrics)
   - [Submission](#submission)
     - [Sample-1](#sample-1)
-    - [Sample-2 (We will provide this as the examplar solution)](#sample-2-we-will-provide-this-as-the-examplar-solution)
+    - [Sample-2 (We will provide this as the exemplar solution)](#sample-2-we-will-provide-this-as-the-exemplar-solution)
 
 ## About
 
@@ -56,7 +56,7 @@ We provide a [`requirements.txt`](requirements.txt) file that can be used to
 install the dependencies with the following commands:
 
 1. `python3.10 -m pip install --upgrade pip`
-1. `python3.10 -m pip install -r requriements.txt`
+1. `python3.10 -m pip install -r requirements.txt`
 1. `sudo python3.10 -m pip install jetson-stats==3.0.1`
 
 ### Testing Dataset
@@ -67,7 +67,11 @@ Please do not distribute the testing data.
 
 #### Evaluation Directory Structure
 
-Plese store the testing data in this repositories [`data`](data/) directory.
+This evaluation is dependent upon the following directory structure:
+
+1. Extract the `LPCVC_Test\IMG` and `LPCVC_Test\GT` folders from the testing
+   data zip file.
+1. Move these directories to the [`data`](data/) directory
 
 The desired directory structure is the following:
 
@@ -79,6 +83,7 @@ The desired directory structure is the following:
 |── submission2
 |── submission2.py
 └── data
+    └── .gitkeep
     └── IMG
         ├── test_0000.png
         ├── test_0001.png
@@ -111,15 +116,15 @@ The desired directory structure is the following:
 
 For a submission *MODEL*, there are should be
 
-- *MODEL.py*: a formated file for performing evaluation
-- *MODEL*: a folder containin related model files, weights, etc.
+- *MODEL.py*: a formatted file for performing evaluation
+- *MODEL*: a folder containing related model files, weights, etc.
 
 ### Sample-1
 
 - Run `python submission1.py`
 - `submission1` is plain pytorch model
 
-### Sample-2 (We will provide this as the examplar solution)
+### Sample-2 (We will provide this as the exemplar solution)
 
 - Run `python submission2.py`
 - `submission2` is tenorRT model converted from Sample-1.
