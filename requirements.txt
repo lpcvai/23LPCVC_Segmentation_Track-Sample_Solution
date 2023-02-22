@@ -4,4 +4,3 @@ opencv-contrib-python
 torch
 torchvision
 tqdm
-# jetson_stats==3.0.1
