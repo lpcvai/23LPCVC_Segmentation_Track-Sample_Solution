@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .resnet import Resnet18
+from lpcvc2023_sample_solution.resnet import Resnet18
 
 up_kwargs = {"mode": "bilinear", "align_corners": True}
 
