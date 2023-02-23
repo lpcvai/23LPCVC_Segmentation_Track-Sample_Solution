@@ -1,5 +1,14 @@
 from argparse import ArgumentParser, Namespace
+from pathlib import PurePath
 from typing import List
+
+import cv2
+import torch
+import torchvision.transforms as transforms
+from cv2.mat_wrapper import Mat
+from imageio.core.util import Array
+from imageio.v2 import imread
+from utils.fanet import FANet
 
 
 def getArgs() -> Namespace:
@@ -22,7 +31,7 @@ def getArgs() -> Namespace:
     )
     parser.add_argument(
         "-o",
-        "--ouput",
+        "--output",
         required=True,
         help="Filepath of where to store output segmentation map",
     )
@@ -30,6 +39,27 @@ def getArgs() -> Namespace:
     return parser.parse_args()
 
 
+def writeImage(imagePath: PurePath) -> None:
+    pass
+
+
 def main() -> None:
     args: Namespace = getArgs()
+
+    SIZE: List[int] = [512, 512]
+
+    # NOTE: modelPath should be the path to your model
+    modelPath: str = "model.pkl"
+
+    inputImage: Array = imread(uri=args.input)
+    resizedInputImage: Mat = cv2.resize(
+        inputImage, tuple(SIZE), interpolation=cv2.INTER_AREA
+    )
+    inputImageTensor = transforms.ToTensor()
+
+    model: FANet = FANet()
+    model.load_state_dict(state_dict=torch.load(f=modelPath))
+    model.eval()
+    model.cuda()
+
     pass
