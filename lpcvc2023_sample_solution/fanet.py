@@ -1,8 +1,3 @@
-######################################################################
-# Hu, Ping et al. Real-time semantic segmentation with fast attention.
-# IEEE Robotics and Automation Letters, 2020
-######################################################################
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -73,7 +68,6 @@ class FANet(nn.Module):
         return x
 
     def _upsample_cat(self, x1, x2):
-        """Upsample and concatenate feature maps."""
         _, _, H, W = x2.size()
         x1 = F.interpolate(x1, (H, W), **self._up_kwargs)
         x = torch.cat([x1, x2], dim=1)
@@ -189,7 +183,6 @@ class LAFeatureFusionModule(nn.Module):
 
         f = key.matmul(value)
         y = query.matmul(f)
-        # pdb.set_trace()
         y = y.permute(0, 2, 1).contiguous()
 
         y = y.view(N, C, H, W)
@@ -216,6 +209,5 @@ class LAFeatureFusionModule(nn.Module):
             return smooth_feat
 
     def _upsample_add(self, x, y):
-        """Upsample and add two feature maps."""
         _, _, H, W = y.size()
         return F.interpolate(x, (H, W), **self._up_kwargs) + y

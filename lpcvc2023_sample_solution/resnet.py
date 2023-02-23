@@ -17,14 +17,12 @@ model_urls = {
 
 
 def conv3x3(in_planes, out_planes, stride=1):
-    """3x3 convolution with padding"""
     return nn.Conv2d(
         in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False
     )
 
 
 def conv1x1(in_planes, out_planes, stride=1):
-    """1x1 convolution"""
     return nn.Conv2d(
         in_planes, out_planes, kernel_size=1, stride=stride, padding=0, bias=False
     )
@@ -144,9 +142,9 @@ class ResNet(nn.Module):
         x = self.maxpool(x)
 
         feat4 = self.layer1(x)
-        feat8 = self.layer2(feat4)  # 1/8
-        feat16 = self.layer3(feat8)  # 1/16
-        feat32 = self.layer4(feat16)  # 1/32
+        feat8 = self.layer2(feat4)
+        feat16 = self.layer3(feat8)
+        feat32 = self.layer4(feat16)
         return feat4, feat8, feat16, feat32
 
     def init_weight(self, state_dict):
