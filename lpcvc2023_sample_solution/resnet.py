@@ -3,17 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 
-model_urls = {
-    "resnet18": "https://download.pytorch.org/models/resnet18-5c106cde.pth",
-    "resnet34": "https://download.pytorch.org/models/resnet34-333f7ec4.pth",
-    "resnet50": "https://download.pytorch.org/models/resnet50-19c8e357.pth",
-    "resnet101": "https://download.pytorch.org/models/resnet101-5d3b4d8f.pth",
-    "resnet152": "https://download.pytorch.org/models/resnet152-b121ed2d.pth",
-    "resnext50_32x4d": "https://download.pytorch.org/models/resnext50_32x4d-7cdf4587.pth",
-    "resnext101_32x8d": "https://download.pytorch.org/models/resnext101_32x8d-8ba56ff5.pth",
-    "wide_resnet50_2": "https://download.pytorch.org/models/wide_resnet50_2-95faca4d.pth",
-    "wide_resnet101_2": "https://download.pytorch.org/models/wide_resnet101_2-32ee1156.pth",
-}
+model_urls = {"resnet18": "https://download.pytorch.org/models/resnet18-5c106cde.pth"}
 
 
 def conv3x3(in_planes, out_planes, stride=1):
@@ -161,41 +151,3 @@ def Resnet18(pretrained=True, norm_layer=None, **kwargs):
     if pretrained:
         model.init_weight(model_zoo.load_url(model_urls["resnet18"]))
     return model
-
-
-def Resnet34(pretrained=True, norm_layer=None, **kwargs):
-    model = ResNet(BasicBlock, [3, 4, 6, 3], [2, 2, 2, 2], norm_layer=norm_layer)
-    if pretrained:
-        model.init_weight(model_zoo.load_url(model_urls["resnet34"]))
-    return model
-
-
-def Resnet50(pretrained=True, norm_layer=None, **kwargs):
-    model = ResNet(Bottleneck, [3, 4, 6, 3], [2, 2, 2, 2], norm_layer=norm_layer)
-    if pretrained:
-        model.init_weight(model_zoo.load_url(model_urls["resnet50"]))
-    return model
-
-
-def Resnet101(pretrained=True, norm_layer=None, **kwargs):
-    model = ResNet(Bottleneck, [3, 4, 23, 3], [2, 2, 2, 2], norm_layer=norm_layer)
-    if pretrained:
-        model.init_weight(model_zoo.load_url(model_urls["resnet101"]))
-    return model
-
-
-def Resnet152(pretrained=True, norm_layer=None, **kwargs):
-    model = ResNet(Bottleneck, [3, 8, 36, 3], [2, 2, 2, 2], norm_layer=norm_layer)
-    if pretrained:
-        model.init_weight(model_zoo.load_url(model_urls["resnet152"]))
-    return model
-
-
-if __name__ == "__main__":
-    net = Resnet18()
-    x = torch.randn(16, 3, 224, 224)
-    out = net(x)
-    print(out[0].size())
-    print(out[1].size())
-    print(out[2].size())
-    net.get_params()
