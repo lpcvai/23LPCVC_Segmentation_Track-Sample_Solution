@@ -1,5 +1,4 @@
 from argparse import ArgumentParser, Namespace
-from pathlib import PurePath
 from typing import List, Tuple
 
 import cv2
@@ -12,7 +11,7 @@ from imageio.v2 import imread
 from numpy import ndarray
 from torch import Tensor
 from torchvision.transforms import transforms
-from torchvision.utils import save_image
+from utils.accuracy import AccuracyTracker
 from utils.fanet import FANet
 
 SIZE: List[int] = [512, 512]
@@ -82,8 +81,10 @@ def main() -> None:
     # NOTE: modelPath should be the path to your model
     modelPath: str = "model.pkl"
 
+    accuracyTracker: AccuracyTracker = AccuracyTracker(n_classes=14)
+
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
-    groundTruthImage: ndarray = loadGroundTruthImage(imagePath=args.ground_truth)
+    groundTruthArray: ndarray = loadGroundTruthImage(imagePath=args.ground_truth)
 
     model: FANet = FANet()
     model.load_state_dict(state_dict=torch.load(f=modelPath))
@@ -95,6 +96,8 @@ def main() -> None:
         outTensor, SIZE, mode="bilinear", align_corners=True
     )
 
-    outTensor = outTensor.cpu().data.max(1)[1].numpy()
+    outArray: ndarray = outTensor.cpu().data.max(1)[1].numpy()
 
-    pass
+    accuracyTracker.update(groundTruthArray, outArray)
+    accuracyTracker.get_scores()
+    print(f"Mean IoU: {accuracyTracker.mean_iu}")
