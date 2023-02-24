@@ -10,7 +10,7 @@ testImages=$(ls $testImagesDirectory)
 # Computes the speed of the model
 for testImage in $testImages;
 do
-    python3.10 test.py -i ${testImagesDirectory}/${testImage} -o evalDirectory/${testImage}
+    python3.10 solution.pyz -i ${testImagesDirectory}/${testImage} -o evalDirectory/${testImage}
     speed=$[${speed} + ${SECONDS}]
 done;
 
