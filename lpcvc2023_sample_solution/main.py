@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, Namespace
-from typing import List, Tuple
+from typing import List, Tuple, BinaryIO
 
 import cv2
 import numpy
@@ -88,8 +88,8 @@ def main() -> None:
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
     #groundTruthArray: ndarray = loadGroundTruthImage(imagePath=args.ground_truth) ##Delete
     modelPath: str = "model.pkl"
-    model_file = pkg_resources.resource_stream(__name__, modelPath)
-
+    #model_file = pkg_resources.resource_stream(__name__, modelPath)
+    model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
     model: FANet = FANet()
     model.load_state_dict(state_dict=torch.load(f=model_file , map_location=torch.device('cpu'))) #modified
     model.eval()
@@ -100,7 +100,7 @@ def main() -> None:
     )
 
     outArray: ndarray = outTensor.cpu().data.max(1)[1].numpy()
-    outArray = outArray.astype(numpy.uint8) # may need to specify types
+    outArray: ndarray = outArray.astype(numpy.uint8) # may need to specify types
 
-    outImage = cv2.cvtColor(outArray[0], cv2.COLOR_GRAY2BGR) # may need to specify types
+    outImage: ndarray = cv2.cvtColor(outArray[0], cv2.COLOR_GRAY2BGR) # may need to specify types
     cv2.imwrite(args.output, outImage)
