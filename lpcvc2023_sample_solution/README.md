@@ -33,16 +33,17 @@ python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'
 ## Formatting
 
 ### This is the directory tree from our sample solution and in correspondance with the path we used for our model.
-`lpcvc2023_sample_solution`
-`├── __init__.py`
-`├── __main__.py`
-`├── main.py`
-`├── model.pkl`
-`├── README.md`
-`└── utils`
-   ` ├── fanet.py`
-   ` ├── __init__.py`
-   ` ├── README.md`
-   ` └── resnet.py`
+```lpcvc2023_sample_solution
+├── __init__.py
+├── __main__.py
+├── main.py
+├── model.pkl
+├── README.md
+└── utils
+    ├── fanet.py
+    ├── __init__.py
+    ├── README.md
+    └── resnet.py
+```
 ## Evaluation
 We will be evaluating your file in the following manner: `time python3.6 solution.pyz -i testimage -o output.png`
