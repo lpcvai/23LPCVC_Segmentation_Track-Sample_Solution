@@ -32,7 +32,7 @@ python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'
 
 ## Formatting
 
-### This is the directory tree from our sample solution and in correspondance with the path we used for our model.
+This is the directory tree from our sample solution and in correspondance with the path we used for our model.
 ```lpcvc2023_sample_solution
 ├── __init__.py
 ├── __main__.py
