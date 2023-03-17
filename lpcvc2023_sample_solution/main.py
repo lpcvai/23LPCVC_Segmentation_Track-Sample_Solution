@@ -30,7 +30,7 @@ def getArgs() -> Namespace:
     description: str = f"This {programName} does create a single segmentation map of arieal scenes of disaster environments captured by unmanned arieal vehicles (UAVs)"
     epilog: str = f"This {programName} was created by {''.join(authors)}"
 
-    # NOTE: It is recommended to not change these flags
+    # NOTE: Do not change these flags
     parser: ArgumentParser = ArgumentParser(prog, usage, description, epilog)
     parser.add_argument(
         "-i",
@@ -38,12 +38,11 @@ def getArgs() -> Namespace:
         required=True,
         help="Filepath to an image to create a segmentation map of",
     )
-    parser.add_argument( #change to output file path add default output.png
+    parser.add_argument( 
         "-o",
         "--output",
         required=True,
         help="Filepath to the corresponding output segmentation map",
-        #default = ./output.png
     )
 
     return parser.parse_args()
@@ -81,14 +80,11 @@ def main() -> None:
 
     args: Namespace = getArgs()
 
-    # NOTE: modelPath should be the path to your model
-    #modelPath: str = "model.pkl"
+    # NOTE: modelPath should be the path to your model in respect to your solution directory
+    modelPath: str = "model.pkl"
 
 
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
-    #groundTruthArray: ndarray = loadGroundTruthImage(imagePath=args.ground_truth) ##Delete
-    modelPath: str = "model.pkl"
-    #model_file = pkg_resources.resource_stream(__name__, modelPath)
     model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
     model: FANet = FANet()
     model.load_state_dict(state_dict=torch.load(f=model_file , map_location=torch.device('cpu'))) #modified
@@ -100,7 +96,7 @@ def main() -> None:
     )
 
     outArray: ndarray = outTensor.cpu().data.max(1)[1].numpy()
-    outArray: ndarray = outArray.astype(numpy.uint8) # may need to specify types
+    outArray: ndarray = outArray.astype(numpy.uint8)
 
-    outImage: ndarray = cv2.cvtColor(outArray[0], cv2.COLOR_GRAY2BGR) # may need to specify types
+    outImage: ndarray = cv2.cvtColor(outArray[0], cv2.COLOR_GRAY2BGR)
     cv2.imwrite(args.output, outImage)

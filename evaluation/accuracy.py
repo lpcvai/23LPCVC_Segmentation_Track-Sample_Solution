@@ -35,24 +35,17 @@ class AccuracyTracker(object):
         acc_cls = numpy.diag(hist) / (hist.sum(axis=1) + 0.000000001)
         self.acc_cls = numpy.nanmean(acc_cls)
 
-        #iu = numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) - numpy.diag(hist)) # Need to edit
-        #dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0))
+        #iu = numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) - numpy.diag(hist))
         with numpy.errstate(invalid='ignore'):  # ignore invalid value warning
-            dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0))
-
-
-        #self.mean_iu = numpy.nanmean(iu)
+            dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) + numpy.diag(hist))
         self.mean_dice = numpy.nanmean(dice)
         freq = hist.sum(axis=1) / hist.sum()
-        #self.fwavacc = (freq[freq > 0] * iu[freq > 0]).sum()
         self.fwavacc = (freq[freq > 0] * dice[freq > 0]).sum()
-        #self.cls_iu = dict(zip(range(self.n_classes), iu))
         self.cls_dice = dict(zip(range(self.n_classes), dice))
 
         return {
             "Overall Acc: \t": self.acc,
             "Mean Acc : \t": self.acc_cls,
             "FreqW Acc : \t": self.fwavacc,
-            #"Mean IoU : \t": self.mean_iu,
             "Mean Dice : \t": self.mean_dice,
         }
