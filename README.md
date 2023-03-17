@@ -13,7 +13,6 @@
   - [Evaluation](#evaluation)
     - [Format](#format)
     - [Metrics](#metrics)
-    - [Sample 1](#sample-1)
 
 ## How to Run
 
@@ -89,6 +88,9 @@ The desired directory structure is the following:
 - Input/output resolution: 512\*512
 - Model Output: `14 * 512 * 512` for `Channel * Height * Width`. Each channel
   corresponds to the predicted probability for one category.
+
+## Submission
+- Each team should submit only one file, `solution.pyz`: the zipped package of solution/. [`zipapp`](https://docs.python.org/3/library/zipapp.html) should be used to compress the package.
 
 ### Metrics
 
