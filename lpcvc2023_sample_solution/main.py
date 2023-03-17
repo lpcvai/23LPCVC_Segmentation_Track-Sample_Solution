@@ -87,7 +87,7 @@ def main() -> None:
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
     model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
     model: FANet = FANet()
-    model.load_state_dict(state_dict=torch.load(f=model_file , map_location=torch.device('cpu'))) #modified
+    model.load_state_dict(state_dict=torch.load(f=model_file))
     model.eval()
     #model.cuda()
     outTensor: Tensor = model(imageTensor)

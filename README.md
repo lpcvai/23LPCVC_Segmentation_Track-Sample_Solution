@@ -92,8 +92,7 @@ The desired directory structure is the following:
 ## Submission
 - Each team should submit only one file, `solution.pyz`: the zipped package of solution/. [`zipapp`](https://docs.python.org/3/library/zipapp.html) should be used to compress the package.
 
-### Metrics
-
+## Metrics
 - Accuracy: Dice Coefficient over all 14 categroies. As calculated in evaluation/Accuracy.py
 - Speed: Average runtime for processing one frame (s/f). As calculated in evaluation/evaluation.bash
 
