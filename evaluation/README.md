@@ -29,6 +29,7 @@ install the same dependencies with the following commands:
 ## Directory Structure
 
 Here is the directory structure that will be used to evaluate solutions. The test directory will need to be created.
+#### Note: The solution.pyz stored here was developed with map_location=torch.device('cpu') as described in the main function in solution/main.py.
 ```
 evaluation
 ├── accuracy.py

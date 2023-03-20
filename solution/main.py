@@ -72,7 +72,7 @@ def main() -> None:
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
     model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
     model: FANet = FANet()
-    model.load_state_dict(state_dict=torch.load(f=model_file , map_location=torch.device('cpu'))) #modified
+    model.load_state_dict(state_dict=torch.load(f=model_file)) #May need to add map_location=torch.device('cpu') to torch.load if machine is CPU-only
     model.eval()
     outTensor: Tensor = model(imageTensor)
     outTensor: Tensor = F.interpolate(
