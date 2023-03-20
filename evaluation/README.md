@@ -9,7 +9,7 @@ The following sections cover how run the sample solution.
 The evaluation of these sample models is dependent upon
 [`Python 3.10`](https://www.python.org/downloads/release/python-3109/)
 
-The following `Python 3.6` dependencies will be installed when evaluating:
+The following `Python 3.6` dependencies will be installed on the evaluation nanos:
 
 - `certifi==2021.5.30`
 - `dataclasses==0.8`
@@ -29,7 +29,7 @@ install the dependencies with the following commands:
 
 ## Directory Structure
 
-Here is the directory structure that will be used to evaluate solutions. The test and output directories will need to be added.
+Here is the directory structure that will be used to evaluate solutions. The test directory will need images added.
 ```
 evaluation
 ├── accuracy.py
@@ -46,8 +46,13 @@ evaluation
         ├── img_0000.png
         └── img_0001.png
 ```
+## Metrics
+- Accuracy will be measured using the Accuracy.py script. In this script we make a NclassxNclass Confusion matrix out of the inputted segmentation map and ground truth. This confusion matrix is used to calculate the dice coefficient using the formula:
+
+- Speed will be measured based upon the average execution time of solution.pyz.
 
 ## Execution
 In order to run the evaluation script we will be running use `./evaluation.bash` this will produce an output file with the scoring metrics.
 
-In order to only test individual images one can run: `python3.6 main.py -i /path/to/segmentedimage -o /path/to/groundtruth`
+In order to only test the dice coefficient of individual images one can run:
+`python3.6 main.py -i /path/to/segmentedimage -g /path/to/groundtruth`

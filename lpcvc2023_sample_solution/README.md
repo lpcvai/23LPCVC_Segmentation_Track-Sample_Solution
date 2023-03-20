@@ -22,7 +22,7 @@ The following `Python 3.6` dependencies will be installed on the nanos:
 - `typing_extensions==4.1.1`
 
 ## Compressing to pyz
-python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'
+From outside solution directory in which solution is the directory name: `python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'`
 
 ## Formatting
 
@@ -40,9 +40,10 @@ lpcvc2023_sample_solution
     ├── README.md
     └── resnet.py
 ```
+main.py has a path to 'model.pkl' make sure to update it with the path to your model.
 
 ## Evaluation
 We will be evaluating your file in using the evaluation folder provided.
 
 ## Run Solution
-The Solution should be able to be ran with the command: `python3.6 solution.pyz -i /path/to/image -o /path/to/output.png`
+The Solution should be able to be ran with the command: `python3.6 solution.pyz -i /path/to/image -o /path/to/output.png` to produce an output png.

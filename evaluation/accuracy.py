@@ -35,9 +35,9 @@ class AccuracyTracker(object):
         acc_cls = numpy.diag(hist) / (hist.sum(axis=1) + 0.000000001)
         self.acc_cls = numpy.nanmean(acc_cls)
 
-        #iu = numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) - numpy.diag(hist))
-        with numpy.errstate(invalid='ignore'):  # ignore invalid value warning
+        with numpy.errstate(invalid='ignore'):
             dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) + numpy.diag(hist))
+
         self.mean_dice = numpy.nanmean(dice)
         freq = hist.sum(axis=1) / hist.sum()
         self.fwavacc = (freq[freq > 0] * dice[freq > 0]).sum()

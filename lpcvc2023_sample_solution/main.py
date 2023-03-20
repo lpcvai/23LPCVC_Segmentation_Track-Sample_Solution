@@ -7,7 +7,6 @@ import torch
 import torch.nn.functional as F
 from cv2.mat_wrapper import Mat
 from imageio.core.util import Array
-#from imageio.v2 import imread
 from imageio import imread
 from numpy import ndarray
 from torch import Tensor
@@ -47,20 +46,6 @@ def getArgs() -> Namespace:
 
     return parser.parse_args()
 
-def loadGroundTruthImage(imagePath: str) -> ndarray:
-    image: Array = imread(uri=imagePath).astype(numpy.uint8)
-
-    if len(image.shape) == 3:
-        image = image[:, :, 0]
-
-    resizedImage: Mat = cv2.resize(image, tuple(SIZE), interpolation=cv2.INTER_AREA)
-    resizedImage: Mat = cv2.resize(
-        resizedImage, tuple(SIZE), interpolation=cv2.INTER_NEAREST
-    )
-    outputImage: ndarray = resizedImage[numpy.newaxis, :, :]
-
-    return outputImage
-
 def loadImageToTensor(imagePath: str) -> Tensor:
     MEAN: Tuple[float, float, float] = (0.485, 0.456, 0.406)
     STANDARD_DEVIATION: Tuple[float, float, float] = (0.229, 0.224, 0.225)
@@ -87,9 +72,8 @@ def main() -> None:
     imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
     model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
     model: FANet = FANet()
-    model.load_state_dict(state_dict=torch.load(f=model_file))
+    model.load_state_dict(state_dict=torch.load(f=model_file , map_location=torch.device('cpu'))) #modified
     model.eval()
-    #model.cuda()
     outTensor: Tensor = model(imageTensor)
     outTensor: Tensor = F.interpolate(
         outTensor, SIZE, mode="bilinear", align_corners=True
