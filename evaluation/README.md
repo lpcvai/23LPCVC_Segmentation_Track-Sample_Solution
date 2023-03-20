@@ -6,10 +6,9 @@ The following sections cover how run the sample solution.
 
 ### Dependencies
 
-The evaluation of these sample models is dependent upon
-[`Python 3.6.9`]
+The evaluation of these sample models is dependent upon `Python 3.6.9`
 
-The following `Python 3.6` dependencies will be installed on the evaluation nanos:
+The following `Python 3.6.9` dependencies will be installed on the evaluation nanos:
 
 - `certifi==2021.5.30`
 - `dataclasses==0.8`
@@ -29,7 +28,7 @@ install the dependencies with the following commands:
 
 ## Directory Structure
 
-Here is the directory structure that will be used to evaluate solutions. The test directory will need images added.
+Here is the directory structure that will be used to evaluate solutions. The test directory will need to be created.
 ```
 evaluation
 ├── accuracy.py
@@ -37,7 +36,7 @@ evaluation
 ├── main.py
 ├── output
 ├── README.md
-├── sample_solution.pyz
+├── solution.pyz
 └── test
     ├── GT
     │   ├── img_0000.png

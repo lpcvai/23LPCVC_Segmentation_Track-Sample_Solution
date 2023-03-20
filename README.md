@@ -22,7 +22,7 @@ The following sections cover how to evaluate the sample solutions.
 ### Dependencies
 
 The evaluation of these sample models is dependent upon
-[`Python 3.6`]
+[`Python 3.6.9`]
 
 The following `Python 3.6.9` dependencies are necessary:
 
@@ -57,7 +57,7 @@ install the dependencies with the following commands:
 ## Submission
 - Each team should submit only one file, `solution.pyz`: the zipped package of solution/. [`zipapp`](https://docs.python.org/3/library/zipapp.html) should be used to compress the package.
 
-Recommended command: `python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'`
+Recommended command where solution is the name to your directory: `python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'`
 
 ## Metrics
 - Accuracy: Dice Coefficient over all 14 categroies. As calculated in evaluation/Accuracy.py
