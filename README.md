@@ -46,6 +46,25 @@ install the dependencies with the following commands:
 1. `python3.6 -m pip install --upgrade pip`
 1. `python3.6 -m pip install -r requirements.txt`
 
+`pip list` should produce this where the packages not included with `requirements.txt` are default python packages:
+
+```
+Package           Version
+----------------- ---------
+certifi           2021.5.30
+dataclasses       0.8
+imageio           2.15.0
+numpy             1.19.5
+opencv-python     4.7.0.72
+Pillow            8.4.0
+pip               21.3.1
+setuptools        58.0.4
+torch             1.10.1
+torchvision       0.11.2
+typing_extensions 4.1.1
+wheel             0.37.1
+```
+
 ## Evaluation
 
 ### Format
