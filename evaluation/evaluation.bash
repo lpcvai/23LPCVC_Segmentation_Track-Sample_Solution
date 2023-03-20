@@ -1,6 +1,10 @@
 #!/bin/bash
 
 mkdir evalDirectory
+if [ ! -d "output" ]; then
+  mkdir "output"
+fi
+
 
 testImagesDirectory="test/IMG"
 testGroundTruthImagesDirectory="test/GT"
