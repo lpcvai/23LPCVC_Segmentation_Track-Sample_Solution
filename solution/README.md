@@ -40,7 +40,7 @@ solution
     ├── README.md
     └── resnet.py
 ```
-main.py has a path to 'model.pkl' make sure to update it with the path to your model.
+main.py has a path to 'model.pkl' make sure to update it with the name of your model and the model is in the solution directory.
 
 ## Evaluation
 We will be evaluating your file in using the evaluation folder provided.
