@@ -1,5 +1,6 @@
 from argparse import ArgumentParser, Namespace
 from typing import List, Tuple, BinaryIO
+import pkg_resources
 
 import cv2
 import numpy
@@ -13,8 +14,6 @@ from torch import Tensor
 from torchvision.transforms import transforms
 from utils.fanet import FANet
 
-import pkg_resources
-import os
 
 SIZE: List[int] = [512, 512]
 

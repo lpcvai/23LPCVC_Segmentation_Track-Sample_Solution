@@ -4,8 +4,6 @@ from typing import List, Tuple
 
 import cv2
 import numpy
-#import torch
-#import torch.nn.functional as F
 from cv2.mat_wrapper import Mat
 from imageio.core.util import Array
 from imageio import imread
