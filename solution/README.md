@@ -6,8 +6,7 @@ The following sections cover how to setup the sample solution.
 
 ### Dependencies
 
-The evaluation of these sample models is dependent upon
-[`Python 3.6`](https://www.python.org/downloads/release/python-3109/)
+The evaluation of these sample models is dependent upon `Python 3.6.9`
 
 The following `Python 3.6.9` dependencies will be installed on the nanos:
 
@@ -40,7 +39,7 @@ solution
     ├── README.md
     └── resnet.py
 ```
-main.py has a path to 'model.pkl' make sure to update it with the name of your model and the model is in the solution directory.
+main.py has a path to 'model.pkl' make sure to update it with the name of your model and make sure your model is in the solution directory.
 
 ## Evaluation
 We will be evaluating your file in using the evaluation folder provided.

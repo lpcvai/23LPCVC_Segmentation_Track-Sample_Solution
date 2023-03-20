@@ -7,19 +7,13 @@
 
 - [Sample Solutions for LPCVC 2023](#sample-solutions-for-lpcvc-2023)
   - [Table of Contents](#table-of-contents)
-  - [How to Run](#how-to-run)
-    - [Dependencies](#dependencies)
-    - [Testing Dataset](#testing-dataset)
-      - [Evaluation Directory Structure](#evaluation-directory-structure)
+  - [Dependencies](#dependencies)
   - [Evaluation](#evaluation)
     - [Format](#format)
+    - [Submission](#submission)
     - [Metrics](#metrics)
 
-## How to Run
-
-The following sections cover how to evaluate the sample solutions.
-
-### Dependencies
+## Dependencies
 
 The evaluation of these sample models is dependent upon
 [`Python 3.6.9`]
@@ -46,7 +40,7 @@ install the dependencies with the following commands:
 1. `python3.6 -m pip install --upgrade pip`
 1. `python3.6 -m pip install -r requirements.txt`
 
-`pip list` should produce this where the packages not included with `requirements.txt` are default python packages:
+`pip list` should produce an output the same as below, where the packages not included with `requirements.txt` are default python packages:
 
 ```
 Package           Version
@@ -73,12 +67,12 @@ wheel             0.37.1
 - Model Output: `14 * 512 * 512` for `Channel * Height * Width`. Each channel
   corresponds to the predicted probability for one category.
 
-## Submission
+### Submission
 - Each team should submit only one file, `solution.pyz`: the zipped package of solution/. [`zipapp`](https://docs.python.org/3/library/zipapp.html) should be used to compress the package.
 
 Recommended command where solution is the name to your directory: `python3.6 -m zipapp  solution  -p='/usr/bin/env python3.6'`
 
-## Metrics
+### Metrics
 - Accuracy: Dice Coefficient over all 14 categroies. As calculated in evaluation/Accuracy.py
 - Speed: Average runtime for processing one frame (s/f). As calculated in evaluation/evaluation.bash
 

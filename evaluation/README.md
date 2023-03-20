@@ -2,7 +2,7 @@
 
 ## How to Run
 
-The following sections cover how run the sample solution.
+The following sections cover how to evaluate the sample solution.
 
 ### Dependencies
 
@@ -21,10 +21,10 @@ The following `Python 3.6.9` dependencies will be installed on the evaluation na
 - `typing_extensions==4.1.1`
 
 We provide a [`requirements.txt`](requirements.txt) file that can be used to
-install the dependencies with the following commands:
+install the same dependencies with the following commands:
 
-1. `python3.10 -m pip install --upgrade pip`
-1. `python3.10 -m pip install -r requirements.txt`
+1. `python3.6 -m pip install --upgrade pip`
+1. `python3.6 -m pip install -r requirements.txt`
 
 ## Directory Structure
 
@@ -45,7 +45,7 @@ evaluation
         └── img_0001.png
 ```
 ## Metrics
-- Accuracy will be measured using the Accuracy.py script. In this script we make a NclassxNclass Confusion matrix out of the inputted segmentation map and ground truth. This confusion matrix is used to calculate the dice coefficient using the formula:
+- Accuracy will be measured using the Accuracy.py script. In this script we make a NclassxNclass Confusion matrix out of the inputted segmentation map and ground truth. This confusion matrix is used to calculate the dice coefficient.
 
 - Speed will be measured based upon the average execution time of solution.pyz.
 
