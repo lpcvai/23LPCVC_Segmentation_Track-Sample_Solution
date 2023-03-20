@@ -34,7 +34,6 @@ evaluation
 ├── accuracy.py
 ├── evaluation.bash
 ├── main.py
-├── output
 ├── README.md
 ├── solution.pyz
 └── test
