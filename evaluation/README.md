@@ -7,7 +7,7 @@ The following sections cover how run the sample solution.
 ### Dependencies
 
 The evaluation of these sample models is dependent upon
-[`Python 3.10`](https://www.python.org/downloads/release/python-3109/)
+[`Python 3.6.9`]
 
 The following `Python 3.6` dependencies will be installed on the evaluation nanos:
 

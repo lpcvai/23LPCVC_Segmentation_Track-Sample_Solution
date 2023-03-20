@@ -24,7 +24,7 @@ The following sections cover how to evaluate the sample solutions.
 The evaluation of these sample models is dependent upon
 [`Python 3.6`]
 
-The following `Python 3.6` dependencies are necessary:
+The following `Python 3.6.9` dependencies are necessary:
 
 - `certifi==2021.5.30`
 - `dataclasses==0.8`
