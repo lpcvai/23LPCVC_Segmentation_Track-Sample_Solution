@@ -1,6 +1,6 @@
 # Preliminary Sample Solution for LPCVC 2023
 
-> Example solution for [`LPCVC 2023`](lpcvc.ai) for a linux based environment.
+> Example solution for [`LPCVC 2023`](http://lpcv.ai) for a linux based environment.
 ### We will be releasing a NVIDIA Jetpack tested solution soon.
 
 ## Table of Contents
