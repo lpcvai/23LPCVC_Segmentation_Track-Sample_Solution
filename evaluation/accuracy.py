@@ -27,7 +27,7 @@ class AccuracyTracker(object):
         """Returns accuracy score evaluation result.
         - overall accuracy
         - mean accuracy
-        - mean IU
+        - mean Dice
         - fwavacc
         """
         hist = self.confusion_matrix
@@ -36,7 +36,7 @@ class AccuracyTracker(object):
         self.acc_cls = numpy.nanmean(acc_cls)
 
         with numpy.errstate(invalid='ignore'):
-            dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0) + numpy.diag(hist))
+            dice = 2*numpy.diag(hist) / (hist.sum(axis=1) + hist.sum(axis=0))
 
         self.mean_dice = numpy.nanmean(dice)
         freq = hist.sum(axis=1) / hist.sum()
