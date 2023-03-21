@@ -20,7 +20,7 @@ The following `Python 3.6.9` dependencies will be installed on the evaluation na
 - `torchvision==0.11.2`
 - `typing_extensions==4.1.1`
 
-We provide a [`requirements.txt`](requirements.txt) file that can be used to
+We provide a `requirements.txt` in the root folder that can be used to
 install the same dependencies with the following commands:
 
 1. `python3.6 -m pip install --upgrade pip`
