@@ -23,7 +23,7 @@ The following `Python 3.6.9` dependencies will be installed on the evaluation na
 ## Directory Structure
 
 Here is the directory structure that will be used to evaluate solutions. The test directory will need to be created.
-#### Note: The solution.pyz stored here was developed with map_location=torch.device('cpu') as described in the main function in solution/main.py.
+#### Note: The solution.pyz stored here was developed with map_location=torch.device('cpu') as described in the main function in solution/main.py, due to constaints on my personal computer.
 ```
 evaluation
 ├── accuracy.py
