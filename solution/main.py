@@ -1,18 +1,20 @@
 from argparse import ArgumentParser, Namespace
 from typing import List, Tuple, BinaryIO
-import pkg_resources
-
-import cv2
-import numpy
+import numpy as np
+from PIL import Image
 import torch
 import torch.nn.functional as F
-from cv2.mat_wrapper import Mat
-from imageio.core.util import Array
-from imageio import imread
-from numpy import ndarray
-from torch import Tensor
 from torchvision.transforms import transforms
 from utils.fanet import FANet
+import cv2
+from imageio import imread
+from cv2.mat_wrapper import Mat
+import pkg_resources
+import sys
+import os
+import io
+import zipfile 
+import pkg_resources
 
 
 SIZE: List[int] = [512, 512]
@@ -36,7 +38,7 @@ def getArgs() -> Namespace:
         required=True,
         help="Filepath to an image to create a segmentation map of",
     )
-    parser.add_argument( 
+    parser.add_argument(
         "-o",
         "--output",
         required=True,
@@ -45,7 +47,8 @@ def getArgs() -> Namespace:
 
     return parser.parse_args()
 
-def loadImageToTensor(imagePath: str) -> Tensor:
+
+def loadImageToTensor(imagePath: str) -> torch.Tensor:
     MEAN: Tuple[float, float, float] = (0.485, 0.456, 0.406)
     STANDARD_DEVIATION: Tuple[float, float, float] = (0.229, 0.224, 0.225)
 
@@ -59,27 +62,42 @@ def loadImageToTensor(imagePath: str) -> Tensor:
 
     return imageTensor
 
-
 def main() -> None:
-
     args: Namespace = getArgs()
 
     # NOTE: modelPath should be the path to your model in respect to your solution directory
     modelPath: str = "model.pkl"
 
+    image_files: List[str] = os.listdir(args.input)
 
-    imageTensor: Tensor = loadImageToTensor(imagePath=args.input)
-    model_file: BinaryIO = pkg_resources.resource_stream(__name__, modelPath)
-    model: FANet = FANet()
-    model.load_state_dict(state_dict=torch.load(f=model_file, map_location=torch.device('cpu'))) # Can remove map_location=torch.device('cpu') to torch.load if machine has CUDA
-    model.eval()
-    outTensor: Tensor = model(imageTensor)
-    outTensor: Tensor = F.interpolate(
-        outTensor, SIZE, mode="bilinear", align_corners=True
-    )
+        
+    with pkg_resources.resource_stream(__name__, modelPath) as model_file:
+        model: FANet = FANet()
+        device = torch.device("cuda")
+        model.to(device)
+        model.load_state_dict(
+                state_dict=torch.load(f=model_file, map_location=torch.device("cuda")), strict=False
+        )
+        model.eval()
+        for image_file in image_files:
+            input_image_path: str = os.path.join(args.input, image_file)
+            output_image_path: str = os.path.join(args.output, image_file)
+            imageTensor: torch.Tensor = loadImageToTensor(imagePath=input_image_path)
+            imageTensor = imageTensor.to(device)
+            outTensor: torch.Tensor = model(imageTensor)
+            outTensor: torch.Tensor = F.interpolate(
+                outTensor, SIZE, mode="bilinear", align_corners=True
+            )
 
-    outArray: ndarray = outTensor.cpu().data.max(1)[1].numpy()
-    outArray: ndarray = outArray.astype(numpy.uint8)
+            outArray: np.ndarray = outTensor.cpu().data.max(1)[1].numpy()
+            outArray: np.ndarray = outArray.astype(np.uint8)
 
-    outImage: ndarray = cv2.cvtColor(outArray[0], cv2.COLOR_GRAY2BGR)
-    cv2.imwrite(args.output, outImage)
+            outImage: np.ndarray = np.squeeze(outArray, axis=0)
+            outImage = Image.fromarray(outImage, mode='L')
+            outImage.save(output_image_path)
+        del model
+        del imageTensor
+        del outTensor
+        torch.cuda.empty_cache()
+        model_file.close()
+

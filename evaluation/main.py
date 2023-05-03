@@ -9,6 +9,8 @@ from imageio.core.util import Array
 from imageio import imread
 from numpy import ndarray
 import sys
+import os
+import glob
 
 SIZE: List[int] = [512, 512]
 
@@ -26,15 +28,15 @@ def getArgs() -> Namespace:
     parser: ArgumentParser = ArgumentParser(prog, usage, description, epilog)
     parser.add_argument(
         "-i",
-        "--image",
+        "--imagedirectory",
         required=True,
-        help="Filepath to generated segmentation map",
+        help="Directory containing the generated segmentation maps",
     )
     parser.add_argument(
         "-g",
         "--groundtruth",
         required=True,
-        help="Filepath to ground truth to compare to",
+        help="Directory containing the ground truth images to compare to",
     )
 
     return parser.parse_args()
@@ -63,7 +65,26 @@ def get_score(image, groundTruth):
 
 def main():
     args: Namespace = getArgs()
-    print(get_score(args.image, args.groundtruth))
+    
+    segmentation_map_directory = args.imagedirectory
+    ground_truth_directory = args.groundtruth
+    
+    segmentation_maps = sorted(glob.glob(os.path.join(segmentation_map_directory, '*.png')))
+    ground_truths = sorted(glob.glob(os.path.join(ground_truth_directory, '*.png')))
+    
+    if len(segmentation_maps) != len(ground_truths):
+        print("The number of segmentation maps and ground truth images does not match.")
+        sys.exit(1)
+
+    total_score = 0
+    image_count = len(segmentation_maps)
+
+    for image, ground_truth in zip(segmentation_maps, ground_truths):
+        score = get_score(image, ground_truth)
+        total_score += score
+
+    average_score = total_score / image_count
+    print(f"{average_score}")
 
 
 if __name__=='__main__':

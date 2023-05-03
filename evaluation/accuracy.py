@@ -27,7 +27,7 @@ class AccuracyTracker(object):
         """Returns accuracy score evaluation result.
         - overall accuracy
         - mean accuracy
-        - mean Dice
+        - mean IU
         - fwavacc
         """
         hist = self.confusion_matrix
