@@ -15,15 +15,14 @@ import os
 import io
 import zipfile 
 import pkg_resources
-
-
+import time
 SIZE: List[int] = [512, 512]
 
 
 def getArgs() -> Namespace:
     # NOTE: These variables can be changed
     programName: str = "LPCVC 2023 Sample Solution"
-    authors: List[str] = ["Nicholas M. Synovic", "Ping Hu"]
+    authors: List[str] = ["Benjamin Boardley","Nicholas M. Synovic", "Ping Hu"]
 
     prog: str = programName
     usage: str = f"This is the {programName}"
@@ -70,7 +69,6 @@ def main() -> None:
 
     image_files: List[str] = os.listdir(args.input)
 
-        
     with pkg_resources.resource_stream(__name__, modelPath) as model_file:
         model: FANet = FANet()
         device = torch.device("cuda")
@@ -79,22 +77,40 @@ def main() -> None:
                 state_dict=torch.load(f=model_file, map_location=torch.device("cuda")), strict=False
         )
         model.eval()
-        for image_file in image_files:
+        start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+
+        #Warm Up
+        for image_file in image_files[:15]:
             input_image_path: str = os.path.join(args.input, image_file)
-            output_image_path: str = os.path.join(args.output, image_file)
             imageTensor: torch.Tensor = loadImageToTensor(imagePath=input_image_path)
             imageTensor = imageTensor.to(device)
             outTensor: torch.Tensor = model(imageTensor)
-            outTensor: torch.Tensor = F.interpolate(
-                outTensor, SIZE, mode="bilinear", align_corners=True
-            )
 
-            outArray: np.ndarray = outTensor.cpu().data.max(1)[1].numpy()
-            outArray: np.ndarray = outArray.astype(np.uint8)
+        time = 0
+        with torch.no_grad():
+            for image_file in image_files:
+                input_image_path: str = os.path.join(args.input, image_file)
+                output_image_path: str = os.path.join(args.output, image_file)
+                imageTensor: torch.Tensor = loadImageToTensor(imagePath=input_image_path)
+                imageTensor = imageTensor.to(device)
+                start.record()
+                outTensor: torch.Tensor = model(imageTensor)
+                end.record()
+                torch.cuda.synchronize()
 
-            outImage: np.ndarray = np.squeeze(outArray, axis=0)
-            outImage = Image.fromarray(outImage, mode='L')
-            outImage.save(output_image_path)
+                time += start.elapsed_time(end)
+                
+                outTensor: torch.Tensor = F.interpolate(
+                    outTensor, SIZE, mode="bilinear", align_corners=True
+                )
+
+                outArray: np.ndarray = outTensor.cpu().data.max(1)[1].numpy()
+                outArray: np.ndarray = outArray.astype(np.uint8)
+
+                outImage: np.ndarray = np.squeeze(outArray, axis=0)
+                outImage = Image.fromarray(outImage, mode='L')
+                outImage.save(output_image_path)
+        print(time/1000)
         del model
         del imageTensor
         del outTensor

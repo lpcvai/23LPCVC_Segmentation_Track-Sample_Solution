@@ -1,3 +1,5 @@
+# NOTICE Timing Change
+> Participants will now be printing out their summed inference time in seconds as in solution/main.py.
 ### LPCVC2023 Sample Solution
 
 ## How to Run

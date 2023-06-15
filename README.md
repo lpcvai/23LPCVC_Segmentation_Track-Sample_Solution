@@ -1,6 +1,8 @@
 # Sample Solution for LPCVC 2023
 
 > Example solution for LPCVC 2023 for a Jetson Nano
+# NOTICE Timing Change
+> Participants will now be printing out their summed inference time in seconds as in solution/main.py.
 
 ## Table of Contents
 
@@ -36,7 +38,7 @@
   - Go to the downloads directory on your local computer and copy all of the sdk files to a USB drive
   - Open up the desktop on your jetson nano and install all of the software from the usb drive(may need to copy it to machine)
   - Some .deb files that install repositories. Those will display instructions to install GPG keys post installation
-  - Additionally, we recommend installing the software in alphabetical order 3 times. Some of the software is dependent upon components that appear later in the directory listing and we were unsure of the specific order.
+  - Additionally, we recommend installing the software in alphabetical order 3 times. Some of the software is dependent upon components that appear later in the        directory listing and we were unsure of the specific order.
   - To install you can run `sudo dpkg -i *.deb` this will install all deb files in a specified directory
   - Then run `sudo apt --fix-broken install -y` to fix any broken packages
 ### Dependencies
@@ -44,7 +46,7 @@
 The evaluation of these sample models is dependent upon below packages
 [`Python 3.6.9`]
 
-If using the nvidia Jetson Nano we provide a [`setup.bash`](setup.bash) that will install all python dependencies that are on our Nano.
+If using the nvidia Jetson Nano we provide a [`setup.bash`](setup.bash) that will install all dependencies that are on our Nano.
 
 If running with the Jetson Nano and you are getting "illegal instruction (core Dumped) try running export OPENBLAS_CORETYPE=ARMV8.
 
@@ -180,5 +182,5 @@ Recommended command where solution is the name to your directory: `python3.6 -m 
 
 ### Metrics
 - Accuracy: Dice Coefficient over all 14 categroies. As calculated in evaluation/Accuracy.py
-- Speed: Average runtime for processing one frame (s/f). As calculated in evaluation/evaluation.bash
+- Speed: Average runtime for processing one frame (s/f). As calculated in solution/main.py
 
