@@ -24,7 +24,6 @@ start_time=$(date +%s)
 time_output=$(timeout $TIMEOUT python3.6 $solution -i ${testImagesDirectory} -o $eval ; 2>&1 > /dev/null )
 exit_code=$?
 end_time=$(date +%s)
-echo $exit_code
 runtime=$((end_time-start_time))
 echo $runtime
 # Check if the command ran for longer than the timeout
@@ -52,7 +51,6 @@ elif [ $exit_code -ne 0 ]; then
 else
     # The solution ran successfully; calculate the scores
     real_time=$(echo "$time_output")
-    echo "$real_time"
 
     mdice=$(python3.6 $scoreResults -i $eval -g ${testGroundTruthImagesDirectory} 2>/dev/null)
     accuracy_exit_code=$?
