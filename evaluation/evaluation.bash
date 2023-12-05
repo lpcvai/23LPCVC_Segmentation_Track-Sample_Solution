@@ -7,7 +7,7 @@ solution=$1
 filename=$(basename $solution)
 submissionName=${filename%.pyz}
 
-path="/home/lpcvcnode1/lpcvc2023/evaluation"
+path="/home/saivemu/code/ece-595-lpcv-fp/evaluation"
 mkdir $path/evalDirectory
 if [ ! -d "$path/output" ]; then
   mkdir "$path/output"
@@ -15,8 +15,8 @@ fi
 eval=$path/evalDirectory
 
 scoreResults="$path/main.py"
-testImagesDirectory="$path/LPCVC_Test_Private/LPCVC_Test_Private/IMG"
-testGroundTruthImagesDirectory="$path/LPCVC_Test_Private/LPCVC_Test_Private/GT"
+testImagesDirectory="$path/test/IMG"
+testGroundTruthImagesDirectory="$path/test/GT"
 testImages=$(ls $testImagesDirectory)
 summed_dice=0
 count=600
