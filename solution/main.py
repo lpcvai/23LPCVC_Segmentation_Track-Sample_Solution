@@ -22,11 +22,11 @@ SIZE: List[int] = [512, 512]
 def getArgs() -> Namespace:
     # NOTE: These variables can be changed
     programName: str = "LPCVC 2023 Sample Solution"
-    authors: List[str] = ["Benjamin Boardley","Nicholas M. Synovic", "Ping Hu"]
+    authors: List[str] = ["Stephanie Guerra", "Himank Kothari", "Sai Vemu"]
 
     prog: str = programName
     usage: str = f"This is the {programName}"
-    description: str = f"This {programName} does create a single segmentation map of arieal scenes of disaster environments captured by unmanned arieal vehicles (UAVs)"
+    description: str = f"This {programName} does create a single segmentation map of aerial scenes of disaster environments captured by unmanned arieal vehicles (UAVs)"
     epilog: str = f"This {programName} was created by {''.join(authors)}"
 
     # NOTE: Do not change these flags
