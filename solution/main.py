@@ -52,7 +52,7 @@ def loadImageToTensor(imagePath: str) -> torch.Tensor:
     STANDARD_DEVIATION: Tuple[float, float, float] = (0.229, 0.224, 0.225)
 
     image: Array = imread(uri=imagePath)
-    resizedImage: Mat = cv2.resize(image, tuple(SIZE), interpolation=cv2.INTER_AREA)
+    resizedImage: Mat = cv2.resize(image, tuple(SIZE), interpolation=cv2.INTER_LINEAR)
     imageTensor: Tensor = transforms.ToTensor()(resizedImage)
     imageTensor: Tensor = transforms.Normalize(mean=MEAN, std=STANDARD_DEVIATION)(
         imageTensor
@@ -104,12 +104,13 @@ def main() -> None:
                     outTensor, SIZE, mode="bilinear", align_corners=True
                 )
 
-                outArray: np.ndarray = outTensor.cpu().data.max(1)[1].numpy()
+                outArray: np.ndarray = outTensor.cpu().data.max(1)[1].numpy().astype(np.uint8)
                 outArray: np.ndarray = outArray.astype(np.uint8)
 
                 outImage: np.ndarray = np.squeeze(outArray, axis=0)
                 outImage = Image.fromarray(outImage, mode='L')
                 outImage.save(output_image_path)
+                
         print(time/1000)
         del model
         del imageTensor
