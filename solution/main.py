@@ -4,7 +4,9 @@ import numpy as np
 from PIL import Image
 import torch
 import torch.nn.functional as F
-from torchvision.transforms import transforms
+from torchvision.transforms import transforms, InterpolationMode
+from torchvision.io import read_image
+from torchvision.transforms.functional import resize, convert_image_dtype
 from utils.fanet import FANet
 import cv2
 from imageio import imread
@@ -51,13 +53,12 @@ def loadImageToTensor(imagePath: str) -> torch.Tensor:
     MEAN: Tuple[float, float, float] = (0.485, 0.456, 0.406)
     STANDARD_DEVIATION: Tuple[float, float, float] = (0.229, 0.224, 0.225)
 
-    image: Array = imread(uri=imagePath)
-    resizedImage: Mat = cv2.resize(image, tuple(SIZE), interpolation=cv2.INTER_LINEAR)
-    imageTensor: Tensor = transforms.ToTensor()(resizedImage)
-    imageTensor: Tensor = transforms.Normalize(mean=MEAN, std=STANDARD_DEVIATION)(
-        imageTensor
-    )
-    imageTensor: Tensor = imageTensor.unsqueeze(0)
+    # Efficient image loading and resizing
+    imageTensor: torch.Tensor = read_image(imagePath)
+    imageTensor: torch.Tensor = resize(imageTensor, SIZE, interpolation=InterpolationMode.BILINEAR)  # Using INTER_LINEAR for faster operation
+    imageTensor: torch.Tensor = convert_image_dtype(imageTensor, dtype=torch.float32)
+    imageTensor: torch.Tensor = transforms.Normalize(mean=MEAN, std=STANDARD_DEVIATION)(imageTensor)
+    imageTensor: torch.Tensor = imageTensor.unsqueeze(0)
 
     return imageTensor
 
@@ -110,6 +111,7 @@ def main() -> None:
                 outImage: np.ndarray = np.squeeze(outArray, axis=0)
                 outImage = Image.fromarray(outImage, mode='L')
                 outImage.save(output_image_path)
+
                 
         print(time/1000)
         del model
